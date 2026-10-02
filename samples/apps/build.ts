@@ -1,5 +1,7 @@
 #!/usr/bin/env bun
-// Builds (or with --check verifies) every sample app's dist/main.js and validates it.
+// Builds (or with --check verifies) every sample app's dist/main.js. Manifests
+// are validated by the Rust validator (cargo test -p cmux-app-manifest, which
+// loads samples/apps/*).
 import { readdirSync, statSync } from "node:fs"
 import { join } from "node:path"
 const here = new URL(".", import.meta.url).pathname
@@ -9,7 +11,6 @@ let failed = false
 for (const name of readdirSync(here).filter((n) => statSync(join(here, n)).isDirectory()).sort()) {
   const dir = join(here, name)
   const pack = Bun.spawnSync(["bun", join(tools, "pack.ts"), dir, ...(check ? ["--check"] : [])], { stdout: "inherit", stderr: "inherit" })
-  const validate = Bun.spawnSync(["bun", join(tools, "validate-manifest.ts"), dir], { stdout: "inherit", stderr: "inherit" })
-  if (pack.exitCode !== 0 || validate.exitCode !== 0) failed = true
+  if (pack.exitCode !== 0) failed = true
 }
 process.exit(failed ? 1 : 0)
