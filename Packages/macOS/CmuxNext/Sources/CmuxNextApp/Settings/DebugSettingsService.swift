@@ -1,3 +1,4 @@
+import CmuxNextFeed
 import AppKit
 import CmuxNextActions
 import CmuxNextAgentActivity
@@ -17,7 +18,7 @@ import Foundation
 enum TunableCatalog {
     static var all: [TunableDescriptor] {
         DesignTunables.all + LayoutTunables.all + TabTunables.all + SidebarTunables.all + DragTunables.all
-            + AgentActivityTunables.all + TasksTunables.all + AppsTunables.all + PaletteTunables.all + ServerTunables.all
+            + AgentActivityTunables.all + TasksTunables.all + AppsTunables.all + PaletteTunables.all + ServerTunables.all + FeedTunables.all
     }
 }
 

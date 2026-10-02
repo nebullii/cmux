@@ -5372,6 +5372,17 @@
     },
     {
       "cli" : "guiOnly",
+      "cli_name" : "feed show",
+      "context_menu" : "noObject",
+      "context_menus" : [
+
+      ],
+      "id" : "feed.show",
+      "mcp" : "guiOnly",
+      "palette" : "offered"
+    },
+    {
+      "cli" : "guiOnly",
       "cli_name" : "notification show",
       "context_menu" : "noObject",
       "context_menus" : [
