@@ -73,6 +73,22 @@ struct SceneNodeViewRenderingTests {
         #expect(vertical.height > 20)
     }
 
+    /// https://github.com/manaflow-ai/cmux/issues/24282: `.fontDesign` has to
+    /// change the rendered font, not only land on the node. Monospaced glyphs
+    /// share one advance, so a run of narrow letters gets wider than in the
+    /// default design.
+    @Test func fontDesignChangesTheRenderedFont() throws {
+        let roomy = CGSize(width: 1000, height: 100)
+        let narrowLetters = String(repeating: "i", count: 40)
+        let plain = try renderedSize("sidebar(() => Text(\"\(narrowLetters)\").lineLimit(1))", proposal: roomy)
+        let mono = try renderedSize("sidebar(() => Text(\"\(narrowLetters)\").lineLimit(1).fontDesign(\"monospaced\"))", proposal: roomy)
+        #expect(mono.width > plain.width * 1.5)
+        // The design also applies on top of an explicit size.
+        let sized = try renderedSize("sidebar(() => Text(\"\(narrowLetters)\").lineLimit(1).font(14))", proposal: roomy)
+        let sizedMono = try renderedSize("sidebar(() => Text(\"\(narrowLetters)\").lineLimit(1).font(14).fontDesign(\"monospaced\"))", proposal: roomy)
+        #expect(sizedMono.width > sized.width * 1.5)
+    }
+
     /// https://github.com/manaflow-ai/cmux/issues/14662: a `Menu` inside
     /// `.contextMenu` rendered nothing, so the submenu vanished from the
     /// context menu while its sibling buttons still showed.

@@ -62,6 +62,23 @@ struct SidebarJSRuntimeTests {
         #expect(root?.string("cursor") == "pointer")
     }
 
+    /// https://github.com/manaflow-ai/cmux/issues/24282: a JS `Text` had no
+    /// way to pick a font design, so `.fontDesign("serif")` threw
+    /// "is not a function" and the program never started.
+    @Test func fontDesignReachesTheNode() throws {
+        let runtime = SidebarJSRuntime()
+        runtime.start(source: """
+        sidebar(() => VStack([
+            Text("serif").fontDesign("serif"),
+            Text("rounded").fontDesign("rounded"),
+        ]))
+        """)
+        #expect(runtime.errorMessage == nil)
+        let root = try #require(runtime.store.rootId.flatMap { runtime.store.node($0) })
+        #expect(runtime.store.node(root.children[0])?.string("fontDesign") == "serif")
+        #expect(runtime.store.node(root.children[1])?.string("fontDesign") == "rounded")
+    }
+
     /// `.frame(() => ({ ... }))` used to be dropped silently: the runtime read
     /// the keys of the function object (none), so a live width never applied.
     @Test func frameAcceptsAReactiveSpec() {
