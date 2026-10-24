@@ -87,6 +87,10 @@ struct SceneNodeViewRenderingTests {
         let sized = try renderedSize("sidebar(() => Text(\"\(narrowLetters)\").lineLimit(1).font(14))", proposal: roomy)
         let sizedMono = try renderedSize("sidebar(() => Text(\"\(narrowLetters)\").lineLimit(1).font(14).fontDesign(\"monospaced\"))", proposal: roomy)
         #expect(sizedMono.width > sized.width * 1.5)
+        // And on top of a named font with a weight.
+        let named = try renderedSize("sidebar(() => Text(\"\(narrowLetters)\").lineLimit(1).font(\"headline\").weight(\"semibold\"))", proposal: roomy)
+        let namedMono = try renderedSize("sidebar(() => Text(\"\(narrowLetters)\").lineLimit(1).font(\"headline\").weight(\"semibold\").fontDesign(\"monospaced\"))", proposal: roomy)
+        #expect(namedMono.width > named.width * 1.5)
     }
 
     /// https://github.com/manaflow-ai/cmux/issues/14662: a `Menu` inside
