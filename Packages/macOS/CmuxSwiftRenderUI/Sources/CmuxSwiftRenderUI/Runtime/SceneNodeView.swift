@@ -274,14 +274,18 @@ private struct SceneNodeContent: View {
 
     private var fontSpec: DSLFontSpec? {
         let weight = dslFontWeight(node.string("weight"))
+        // `.fontDesign("serif")` and friends: the design rides on the same
+        // system font the size and weight resolve to, so it also applies when
+        // the text names no font at all.
+        let design = dslFontDesign(node.string("fontDesign"))
         if let size = node.props["font"]?.doubleValue {
-            return dslFontSpec(named: nil, size: size, weight: weight)
+            return dslFontSpec(named: nil, size: size, weight: weight, design: design ?? .default)
         }
         if let named = node.string("font") {
-            return dslFontSpec(named: named, size: nil, weight: weight)
+            return dslFontSpec(named: named, size: nil, weight: weight, design: design ?? .default)
         }
-        if weight != nil {
-            return dslFontSpec(named: "body", size: nil, weight: weight)
+        if weight != nil || design != nil {
+            return dslFontSpec(named: "body", size: nil, weight: weight, design: design ?? .default)
         }
         return nil
     }

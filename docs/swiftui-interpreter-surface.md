@@ -35,7 +35,7 @@ Support legend: ● supported · ◐ partial · ○ missing. Priority: P0 highes
 | `.truncationMode` / `.multilineTextAlignment` / `.textCase` | ○ | P1 | Token → enum in bridge. |
 | `.strikethrough` / `.underline` (active/pattern/color) | ◐ | P1 | Read bool + `color` via `dslColor`; conditional apply. |
 | `.tracking` / `.kerning` / `.baselineOffset` | ○ | P1/P2 | Double `firstValue` → Text method. |
-| `.fontDesign` / `.fontWidth` | ○ | P1 | Token → `Font.Design` / `Font.Width`. |
+| `.fontDesign` / `.fontWidth` | ●/○ | P1 | `fontDesign` shipped: token → `Font.Design` through `dslFontDesign`, shared with the JS `Text.fontDesign` prop. `fontWidth`: token → `Font.Width`. |
 | `.dynamicTypeSize` (token/range) | ○ | P2 | Token or range → `DynamicTypeSize`. |
 | `Text(_:format:)` / `.formatted` (byteCount, etc.) | ◐ | P1 | Add format styles to evaluator; render to static verbatim string. |
 | `Label(_:systemImage:)` / `.labelStyle` | ○ | P0/P1 | Dedicated `.label` kind (title text + icon image); `labelStyle` token switches child. |

@@ -171,7 +171,9 @@ Rules of the runtime:
   `RoundedRectangle` `ProgressView` `ForEach` `Reorderable`. Containers take
   `(props, children)` or just `(children)`.
 - Chainable props: `.font(name|size)` `.weight` `.bold()` `.italic()`
-  `.monospaced()` `.color` `.secondary()` `.lineLimit` `.truncation`
+  `.monospaced()` `.fontDesign("serif"|"rounded"|"monospaced"|"default")`
+  (the system font's design; an unknown token keeps the default)
+  `.color` `.secondary()` `.lineLimit` `.truncation`
   `.padding` `.paddingHorizontal` `.paddingVertical` `.background`
   `.hoverBackground` (host-side hover wash, no JS round trip)
   `.cornerRadius` (continuous/squircle curvature) `.borderColor`

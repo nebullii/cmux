@@ -190,7 +190,7 @@
 
   const chainableProps = [
     "font", "color", "padding", "background", "cornerRadius", "opacity",
-    "bold", "italic", "monospaced", "lineLimit", "spacing", "size",
+    "bold", "italic", "monospaced", "fontDesign", "lineLimit", "spacing", "size",
     "width", "height", "minWidth", "maxWidth", "minHeight", "maxHeight",
     "alignment", "fill", "stroke", "strokeWidth", "systemName", "value",
     "help", "truncation", "weight", "secondary", "borderColor", "borderWidth",
